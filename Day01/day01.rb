@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+puts Dir.pwd
 ######### PART 1
 # Calculate how much fuel is needed for each module.
-file = File.open('input.txt')
+file = File.open(File.expand_path('~/AdventOfCode2019/Day01/input.txt'), 'r')
 modules = file.readlines.map(&:chomp).map(&:to_i)
 file.close
 fuel = 0
