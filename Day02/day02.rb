@@ -69,4 +69,45 @@ end
 puts program[0]
 
 ############## Part 2
+# target = 100 * noun * verb.  Find noun and verb.
+target = 19_690_720
+program = File.read(File.expand_path('~/AdventOfCode2019/Day02/input.txt'))
+              .split(',').map(&:to_i)
 
+def solve(prog, noun, verb)
+  prog[1] = noun
+  prog[2] = verb
+  i = 0
+  instr = prog[0]
+
+  loop do
+    case instr
+    when 1
+      op = :+
+    when 2
+      op = :*
+    when 99
+      return prog[0]
+    end
+
+    o1_index = prog[i + 1]
+    o2_index = prog[i + 2]
+    o1 = prog[o1_index]
+    o2 = prog[o2_index]
+    dest_index = prog[i + 3]
+    prog[dest_index] = o1.send(op, o2)
+    i += 4
+    instr = prog[i]
+  end
+end
+
+100.times do |noun|
+  100.times do |verb|
+    res = solve(program.clone, noun, verb)
+
+    if res == target
+      puts 100 * noun + verb
+      exit
+    end
+  end
+end
