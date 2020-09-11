@@ -1,9 +1,12 @@
-file_path = File.expand_path("~/AdventOfCode2019/Day03/input.txt", __FILE__)
+# frozen_string_literal: true
+
+file_path = File.expand_path("~/AdventOfCode2019/Day03/input.txt")
 input     = File.read(file_path)
 
 def walk(path)
   visited = {}
-  x, y = 0, 0
+  x = 0
+  y = 0
   step = 1
 
   path.split(",").each do |instr|
@@ -31,13 +34,9 @@ def walk(path)
 end
 
 path_one, path_two = input.split("\n")
-
 visited_one = walk(path_one)
 visited_two = walk(path_two)
-
 intersection = visited_one.keys & visited_two.keys
-#puts intersection
-
 puts intersection.
-       map { |x, y| visited_one[[x,y]] + visited_two[[x,y]] }
-  #.min
+       map { |x, y| visited_one[[x,y]] + visited_two[[x,y]] }.
+       min
